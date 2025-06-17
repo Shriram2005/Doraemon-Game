@@ -2,7 +2,7 @@
 
 A fully interactive 3D website featuring Doraemon as the main character in a realistic recreation of Nobita's house. Built with Three.js and modern web technologies.
 
-![Doraemon 3D World](screenshot.png)
+![Doraemon 3D World](https://github.com/user-attachments/assets/ea3930e0-d250-429f-8567-eeb60f3b7f00)
 
 ## Features
 
@@ -165,37 +165,6 @@ doraemon-3d-world/
 3. **Lighting**: Adjust light parameters in the game initialization
 4. **Post-Effects**: Add bloom, SSAO, or other effects
 
-## Troubleshooting
-
-### Common Issues
-
-**Game doesn't load**
-- Check browser console for errors
-- Ensure WebGL is enabled in your browser
-- Try a different browser or update your current one
-
-**Poor performance**
-- Close other browser tabs
-- Lower screen resolution
-- Disable other applications
-- Check if hardware acceleration is enabled
-
-**No sound**
-- Check if audio is enabled in browser
-- Allow audio permissions if prompted
-- Check system volume settings
-
-**Controls not working**
-- Click on the game canvas to gain focus
-- Check if any browser extensions are interfering
-- Try refreshing the page
-
-### Performance Tips
-- Use a dedicated graphics card if available
-- Close unnecessary browser tabs
-- Ensure adequate system memory (4GB+ recommended)
-- Use a wired internet connection for best loading speeds
-
 ## Development
 
 ### Building from Source
@@ -232,10 +201,7 @@ This project is licensed under the MIT License. See LICENSE file for details.
 ## Support
 
 For issues, questions, or suggestions:
-1. Check the troubleshooting section above
-2. Review browser compatibility requirements
-3. Create an issue on the project repository
-4. Contact the development team
+mange.shriram@gmail.com
 
 ---
 
