@@ -43,36 +43,35 @@ class DoraemonCharacter {
     createCharacter() {
         // Create character mesh
         this.mesh = new THREE.Group();
-        
-        // Body (main blue rounded body - more anime accurate)
-        const bodyGeometry = new THREE.SphereGeometry(1.0, 16, 12);
-        bodyGeometry.scale(1, 1.4, 1); // Make it slightly taller like anime
+          // Body (main blue rounded body - more anime accurate and well-proportioned)
+        const bodyGeometry = new THREE.SphereGeometry(0.95, 16, 12);
+        bodyGeometry.scale(1, 1.3, 1); // Slightly adjusted proportions
         const bodyMaterial = new THREE.MeshPhongMaterial({ 
             color: 0x0072CE,  // More accurate Doraemon blue
             shininess: 80,
             specular: 0x004499
         });
         const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-        body.position.set(0, 0.7, 0);
+        body.position.set(0, 0.65, 0); // Slightly lowered for better proportion
         body.castShadow = true;
         body.receiveShadow = true;
-        this.mesh.add(body);        
-        // White belly/chest area (iconic feature)
-        const bellyGeometry = new THREE.SphereGeometry(0.85, 32, 32);
+        this.mesh.add(body);
+        
+        // White belly/chest area (iconic feature) - better proportioned
+        const bellyGeometry = new THREE.SphereGeometry(0.8, 32, 32);
         const bellyMaterial = new THREE.MeshPhongMaterial({ 
             color: 0xffffff,
             shininess: 60
         });
         const belly = new THREE.Mesh(bellyGeometry, bellyMaterial);
-        belly.scale.set(1, 1.4, 0.35);
-        belly.position.set(0, 0.7, 0.75);
+        belly.scale.set(1, 1.3, 0.35);
+        belly.position.set(0, 0.65, 0.72); // Adjusted to match body position
         this.mesh.add(belly);
-        
-        // 4D Pocket (black semi-circle)
-        const pocketGeometry = new THREE.CircleGeometry(0.4, 32);
+          // 4D Pocket (black semi-circle) - adjusted position
+        const pocketGeometry = new THREE.CircleGeometry(0.35, 32);
         const pocketMaterial = new THREE.MeshLambertMaterial({ color: 0x000000 });
         const pocket = new THREE.Mesh(pocketGeometry, pocketMaterial);
-        pocket.position.set(0, 0.25, 0.9);
+        pocket.position.set(0, 0.2, 0.87); // Adjusted to match new belly position
         this.mesh.add(pocket);
         
         // Head (larger and perfectly round like anime)
@@ -137,31 +136,42 @@ class DoraemonCharacter {
         });
         const nose = new THREE.Mesh(noseGeometry, noseMaterial);
         nose.position.set(0, 2.15, 0.9);
-        this.mesh.add(nose);
-          // Mouth (curved smile - more detailed and wider)
-        const mouthCurve = new THREE.EllipseCurve(0, 0, 0.35, 0.15, 0, Math.PI, false, 0);
-        const mouthPoints = mouthCurve.getPoints(30);
+        this.mesh.add(nose);        // Mouth (curved smile - more visible and properly positioned)
+        const mouthCurve = new THREE.EllipseCurve(0, 0, 0.4, 0.2, 0, Math.PI, false, 0);
+        const mouthPoints = mouthCurve.getPoints(35);
         const mouthGeometry = new THREE.BufferGeometry().setFromPoints(mouthPoints);
         const mouthMaterial = new THREE.LineBasicMaterial({ 
             color: 0x000000, 
-            linewidth: 6
+            linewidth: 8
         });
         const mouth = new THREE.Line(mouthGeometry, mouthMaterial);
-        mouth.position.set(0, 1.9, 0.85);
+        mouth.position.set(0, 1.85, 0.9); // Better positioned
         mouth.rotation.x = Math.PI;
+        mouth.scale.set(1, 0.8, 1); // Slightly flattened for better smile shape
         this.mesh.add(mouth);
         
-        // Add small mouth corners for extra smile detail
-        const cornerGeometry = new THREE.SphereGeometry(0.02, 8, 8);
+        // Enhanced smile corners for better smile effect
+        const cornerGeometry = new THREE.SphereGeometry(0.025, 12, 12);
         const cornerMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
         
         const leftCorner = new THREE.Mesh(cornerGeometry, cornerMaterial);
-        leftCorner.position.set(-0.3, 1.95, 0.85);
+        leftCorner.position.set(-0.35, 1.9, 0.9);
         this.mesh.add(leftCorner);
         
         const rightCorner = new THREE.Mesh(cornerGeometry, cornerMaterial);
-        rightCorner.position.set(0.3, 1.95, 0.85);
-        this.mesh.add(rightCorner);// Whiskers (6 black lines - more detailed and realistic)
+        rightCorner.position.set(0.35, 1.9, 0.9);
+        this.mesh.add(rightCorner);
+        
+        // Add a subtle lip highlight for more anime-like appearance
+        const lipHighlightGeometry = new THREE.SphereGeometry(0.008, 8, 8);
+        const lipHighlightMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.6
+        });
+        const lipHighlight = new THREE.Mesh(lipHighlightGeometry, lipHighlightMaterial);
+        lipHighlight.position.set(0, 1.92, 0.91);
+        this.mesh.add(lipHighlight);// Whiskers (6 black lines - more detailed and realistic)
         const whiskerGeometry = new THREE.CylinderGeometry(0.01, 0.01, 0.9);
         const whiskerMaterial = new THREE.MeshPhongMaterial({ 
             color: 0x000000,
@@ -187,19 +197,18 @@ class DoraemonCharacter {
             whisker.rotation.y = 0.15;
             this.mesh.add(whisker);
         }
-        
-        // Collar (red band around neck - more detailed)
-        const collarGeometry = new THREE.TorusGeometry(1.1, 0.1, 10, 40);
+          // Collar (red band around neck - properly positioned)
+        const collarGeometry = new THREE.TorusGeometry(1.0, 0.12, 12, 40);
         const collarMaterial = new THREE.MeshPhongMaterial({ 
             color: 0xff0000,
             shininess: 80
         });
         const collar = new THREE.Mesh(collarGeometry, collarMaterial);
-        collar.position.set(0, 1.5, 0);
+        collar.position.set(0, 1.2, 0); // Lowered to align with neck
         this.mesh.add(collar);
         
-        // Bell (golden with shine and details)
-        const bellGeometry = new THREE.SphereGeometry(0.18, 20, 20);
+        // Bell (golden with shine and details) - adjusted position
+        const bellGeometry = new THREE.SphereGeometry(0.15, 20, 20);
         const bellMaterial = new THREE.MeshPhongMaterial({ 
             color: 0xffd700,
             shininess: 150,
@@ -207,57 +216,57 @@ class DoraemonCharacter {
             emissive: 0x221100
         });
         const bell = new THREE.Mesh(bellGeometry, bellMaterial);
-        bell.position.set(0, 1.5, 1.0);
+        bell.position.set(0, 1.2, 0.85); // Aligned with collar
         this.mesh.add(bell);
         
         // Bell details (small line and cross)
-        const bellLineGeometry = new THREE.CylinderGeometry(0.025, 0.025, 0.12);
+        const bellLineGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.1);
         const bellLineMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
         const bellLine = new THREE.Mesh(bellLineGeometry, bellLineMaterial);
-        bellLine.position.set(0, 1.56, 1.0);
+        bellLine.position.set(0, 1.25, 0.85);
         this.mesh.add(bellLine);
         
         // Bell cross detail
-        const bellCrossGeometry = new THREE.BoxGeometry(0.06, 0.02, 0.02);
+        const bellCrossGeometry = new THREE.BoxGeometry(0.05, 0.015, 0.015);
         const bellCross1 = new THREE.Mesh(bellCrossGeometry, bellLineMaterial);
-        bellCross1.position.set(0, 1.5, 1.05);
+        bellCross1.position.set(0, 1.2, 0.88);
         this.mesh.add(bellCross1);
         
         const bellCross2 = new THREE.Mesh(bellCrossGeometry, bellLineMaterial);
-        bellCross2.position.set(0, 1.5, 1.05);
+        bellCross2.position.set(0, 1.2, 0.88);
         bellCross2.rotation.z = Math.PI / 2;
-        this.mesh.add(bellCross2);        // Arms (more rounded and anime-like with better proportions)
+        this.mesh.add(bellCross2);// Arms (more rounded and anime-like with better proportions)
         const armGeometry = new THREE.CylinderGeometry(0.28, 0.28, 0.9, 12);
         const armMaterial = new THREE.MeshPhongMaterial({ 
             color: 0x0072CE,
-            shininess: 80
-        });
-          const leftArm = new THREE.Mesh(armGeometry, armMaterial);
-        leftArm.position.set(-1.0, 0.9, 0);
-        leftArm.rotation.z = 0.2; // Less angled for better alignment
+            shininess: 80        });
+        
+        const leftArm = new THREE.Mesh(armGeometry, armMaterial);
+        leftArm.position.set(-0.9, 0.7, 0); // Better positioning
+        leftArm.rotation.z = 0.15; // Slight angle for natural look
         leftArm.castShadow = true;
         this.mesh.add(leftArm);
         
         const rightArm = new THREE.Mesh(armGeometry, armMaterial);
-        rightArm.position.set(1.0, 0.9, 0);
-        rightArm.rotation.z = -0.2; // Less angled for better alignment
+        rightArm.position.set(0.9, 0.7, 0); // Better positioning  
+        rightArm.rotation.z = -0.15; // Slight angle for natural look
         rightArm.castShadow = true;
         this.mesh.add(rightArm);
         
         // Hands (white spheres, properly aligned with arms)
-        const handGeometry = new THREE.SphereGeometry(0.25, 20, 20);
+        const handGeometry = new THREE.SphereGeometry(0.22, 20, 20);
         const handMaterial = new THREE.MeshPhongMaterial({ 
             color: 0xffffff,
             shininess: 60
         });
         
         const leftHand = new THREE.Mesh(handGeometry, handMaterial);
-        leftHand.position.set(-1.4, 0.4, 0); // Better aligned with left arm
+        leftHand.position.set(-1.15, 0.25, 0); // Properly aligned with left arm end
         leftHand.castShadow = true;
         this.mesh.add(leftHand);
         
         const rightHand = new THREE.Mesh(handGeometry, handMaterial);
-        rightHand.position.set(1.4, 0.4, 0); // Better aligned with right arm
+        rightHand.position.set(1.15, 0.25, 0); // Properly aligned with right arm end
         rightHand.castShadow = true;
         this.mesh.add(rightHand);
           // Legs (shorter and stubbier like anime)
