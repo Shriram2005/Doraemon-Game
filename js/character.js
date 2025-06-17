@@ -196,18 +196,17 @@ class DoraemonCharacter {
             whisker.rotation.z = Math.PI / 2;
             whisker.rotation.y = 0.15;
             this.mesh.add(whisker);
-        }
-          // Collar (red band around neck - properly positioned)
-        const collarGeometry = new THREE.TorusGeometry(1.0, 0.12, 12, 40);
+        }        // Collar (red band around neck - properly positioned and aligned)
+        const collarGeometry = new THREE.TorusGeometry(1.02, 0.1, 12, 40);
         const collarMaterial = new THREE.MeshPhongMaterial({ 
             color: 0xff0000,
             shininess: 80
         });
         const collar = new THREE.Mesh(collarGeometry, collarMaterial);
-        collar.position.set(0, 1.2, 0); // Lowered to align with neck
+        collar.position.set(0, 1.45, 0); // Better alignment with neck/body junction
+        collar.rotation.x = 0.05; // Slight tilt for better fit
         this.mesh.add(collar);
-        
-        // Bell (golden with shine and details) - adjusted position
+          // Bell (golden with shine and details) - adjusted position to match collar
         const bellGeometry = new THREE.SphereGeometry(0.15, 20, 20);
         const bellMaterial = new THREE.MeshPhongMaterial({ 
             color: 0xffd700,
@@ -216,57 +215,58 @@ class DoraemonCharacter {
             emissive: 0x221100
         });
         const bell = new THREE.Mesh(bellGeometry, bellMaterial);
-        bell.position.set(0, 1.2, 0.85); // Aligned with collar
+        bell.position.set(0, 1.45, 0.85); // Aligned with new collar position
         this.mesh.add(bell);
-        
-        // Bell details (small line and cross)
+          // Bell details (small line and cross) - aligned with new bell position
         const bellLineGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.1);
         const bellLineMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
         const bellLine = new THREE.Mesh(bellLineGeometry, bellLineMaterial);
-        bellLine.position.set(0, 1.25, 0.85);
+        bellLine.position.set(0, 1.5, 0.85);
         this.mesh.add(bellLine);
         
         // Bell cross detail
         const bellCrossGeometry = new THREE.BoxGeometry(0.05, 0.015, 0.015);
         const bellCross1 = new THREE.Mesh(bellCrossGeometry, bellLineMaterial);
-        bellCross1.position.set(0, 1.2, 0.88);
+        bellCross1.position.set(0, 1.45, 0.88);
         this.mesh.add(bellCross1);
         
         const bellCross2 = new THREE.Mesh(bellCrossGeometry, bellLineMaterial);
-        bellCross2.position.set(0, 1.2, 0.88);
+        bellCross2.position.set(0, 1.45, 0.88);
         bellCross2.rotation.z = Math.PI / 2;
-        this.mesh.add(bellCross2);// Arms (more rounded and anime-like with better proportions)
-        const armGeometry = new THREE.CylinderGeometry(0.28, 0.28, 0.9, 12);
+        this.mesh.add(bellCross2);        // Arms (more rounded and anime-like with better proportions and alignment)
+        const armGeometry = new THREE.CylinderGeometry(0.26, 0.3, 0.85, 12);
         const armMaterial = new THREE.MeshPhongMaterial({ 
             color: 0x0072CE,
-            shininess: 80        });
+            shininess: 80
+        });
         
         const leftArm = new THREE.Mesh(armGeometry, armMaterial);
-        leftArm.position.set(-0.9, 0.7, 0); // Better positioning
-        leftArm.rotation.z = 0.15; // Slight angle for natural look
+        leftArm.position.set(-0.85, 0.8, 0); // Better positioning closer to body
+        leftArm.rotation.z = 0.1; // Reduced angle for more natural look
+        leftArm.rotation.x = -0.05; // Slight forward tilt
         leftArm.castShadow = true;
         this.mesh.add(leftArm);
         
         const rightArm = new THREE.Mesh(armGeometry, armMaterial);
-        rightArm.position.set(0.9, 0.7, 0); // Better positioning  
-        rightArm.rotation.z = -0.15; // Slight angle for natural look
+        rightArm.position.set(0.85, 0.8, 0); // Better positioning closer to body
+        rightArm.rotation.z = -0.1; // Reduced angle for more natural look
+        rightArm.rotation.x = -0.05; // Slight forward tilt
         rightArm.castShadow = true;
         this.mesh.add(rightArm);
-        
-        // Hands (white spheres, properly aligned with arms)
-        const handGeometry = new THREE.SphereGeometry(0.22, 20, 20);
+          // Hands (white spheres, properly aligned with arms)
+        const handGeometry = new THREE.SphereGeometry(0.24, 20, 20);
         const handMaterial = new THREE.MeshPhongMaterial({ 
             color: 0xffffff,
             shininess: 60
         });
         
         const leftHand = new THREE.Mesh(handGeometry, handMaterial);
-        leftHand.position.set(-1.15, 0.25, 0); // Properly aligned with left arm end
+        leftHand.position.set(-1.05, 0.35, 0.05); // Better aligned with left arm end and angle
         leftHand.castShadow = true;
         this.mesh.add(leftHand);
         
         const rightHand = new THREE.Mesh(handGeometry, handMaterial);
-        rightHand.position.set(1.15, 0.25, 0); // Properly aligned with right arm end
+        rightHand.position.set(1.05, 0.35, 0.05); // Better aligned with right arm end and angle
         rightHand.castShadow = true;
         this.mesh.add(rightHand);
           // Legs (shorter and stubbier like anime)
