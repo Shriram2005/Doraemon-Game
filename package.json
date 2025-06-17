@@ -1,0 +1,83 @@
+{
+  "name": "doraemon-3d-world",
+  "version": "1.0.0",
+  "description": "A fully interactive 3D website featuring Doraemon in a realistic recreation of Nobita's house",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx http-server -p 8000",
+    "dev": "npx live-server --port=8000",
+    "build": "echo 'No build process required - static files ready for deployment'",
+    "deploy": "echo 'Upload all files to your web server'",
+    "test": "echo 'Open http://localhost:8000 in your browser to test'"
+  },
+  "keywords": [
+    "doraemon",
+    "3d",
+    "threejs",
+    "webgl",
+    "interactive",
+    "game",
+    "anime",
+    "nobita",
+    "3d-world",
+    "browser-game"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 60",
+    "Firefox >= 55",
+    "Safari >= 12",
+    "Edge >= 79"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/doraemon-3d-world.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/doraemon-3d-world/issues"
+  },
+  "homepage": "https://github.com/yourusername/doraemon-3d-world#readme",
+  "metadata": {
+    "features": [
+      "Interactive 3D Doraemon character",
+      "Realistic Nobita's house environment",
+      "GTA-style movement controls",
+      "First and third person camera views",
+      "Day/night lighting system",
+      "Procedural audio system",
+      "Mobile touch controls",
+      "WebGL optimization",
+      "Cross-platform compatibility"
+    ],
+    "technologies": [
+      "Three.js",
+      "WebGL",
+      "Web Audio API",
+      "HTML5",
+      "CSS3",
+      "JavaScript ES6+",
+      "Pointer Lock API"
+    ],
+    "requirements": {
+      "webgl": "1.0+",
+      "browser_support": {
+        "chrome": "60+",
+        "firefox": "55+",
+        "safari": "12+",
+        "edge": "79+"
+      },
+      "memory": "4GB+ recommended",
+      "gpu": "Dedicated graphics card recommended"
+    }
+  }
+}

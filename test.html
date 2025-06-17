@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doraemon 3D World - Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #87CEEB, #98FB98);
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .test-item {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .test-pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .test-fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .test-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .play-button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: background 0.3s;
+        }
+        .play-button:hover {
+            background: #0052a3;
+        }
+        .play-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🤖 Doraemon 3D World - Compatibility Test</h1>
+        <p>This page checks if your browser can run the Doraemon 3D World game.</p>
+        
+        <div id="test-results">
+            <h3>Running compatibility tests...</h3>
+        </div>
+        
+        <button id="play-button" class="play-button" disabled>
+            Loading Tests...
+        </button>
+        
+        <div id="recommendations" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        function runCompatibilityTests() {
+            const results = [];
+            let allPassed = true;
+            
+            // Test WebGL support
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (gl) {
+                results.push({
+                    test: 'WebGL Support',
+                    status: 'pass',
+                    message: 'WebGL is supported - 3D graphics will work'
+                });
+            } else {
+                results.push({
+                    test: 'WebGL Support',
+                    status: 'fail',
+                    message: 'WebGL is not supported - game will not work'
+                });
+                allPassed = false;
+            }
+            
+            // Test Web Audio API
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) {
+                results.push({
+                    test: 'Web Audio API',
+                    status: 'pass',
+                    message: 'Audio will work properly'
+                });
+            } else {
+                results.push({
+                    test: 'Web Audio API',
+                    status: 'warning',
+                    message: 'Audio may not work - game will still be playable'
+                });
+            }
+            
+            // Test Pointer Lock API
+            if ('pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document) {
+                results.push({
+                    test: 'Pointer Lock API',
+                    status: 'pass',
+                    message: 'First-person camera controls will work'
+                });
+            } else {
+                results.push({
+                    test: 'Pointer Lock API',
+                    status: 'warning',
+                    message: 'First-person mode may not work properly'
+                });
+            }
+            
+            // Test requestAnimationFrame
+            if (window.requestAnimationFrame) {
+                results.push({
+                    test: 'Animation Support',
+                    status: 'pass',
+                    message: 'Smooth animations will work'
+                });
+            } else {
+                results.push({
+                    test: 'Animation Support',
+                    status: 'fail',
+                    message: 'Animation may be choppy'
+                });
+                allPassed = false;
+            }
+            
+            // Test ES6 support
+            try {
+                eval('class TestClass {}');
+                results.push({
+                    test: 'Modern JavaScript (ES6)',
+                    status: 'pass',
+                    message: 'Modern JavaScript features are supported'
+                });
+            } catch (e) {
+                results.push({
+                    test: 'Modern JavaScript (ES6)',
+                    status: 'fail',
+                    message: 'Browser is too old - please update'
+                });
+                allPassed = false;
+            }
+            
+            // Test localStorage
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                results.push({
+                    test: 'Local Storage',
+                    status: 'pass',
+                    message: 'Settings can be saved'
+                });
+            } catch (e) {
+                results.push({
+                    test: 'Local Storage',
+                    status: 'warning',
+                    message: 'Settings cannot be saved between sessions'
+                });
+            }
+            
+            // Test screen size
+            if (window.innerWidth >= 800 && window.innerHeight >= 600) {
+                results.push({
+                    test: 'Screen Resolution',
+                    status: 'pass',
+                    message: 'Screen size is adequate for gameplay'
+                });
+            } else {
+                results.push({
+                    test: 'Screen Resolution',
+                    status: 'warning',
+                    message: 'Small screen - experience may be limited'
+                });
+            }
+            
+            return { results, allPassed };
+        }
+        
+        function displayResults(testResults) {
+            const container = document.getElementById('test-results');
+            const button = document.getElementById('play-button');
+            const recommendations = document.getElementById('recommendations');
+            
+            let html = '<h3>Compatibility Test Results:</h3>';
+            
+            testResults.results.forEach(result => {
+                const className = result.status === 'pass' ? 'test-pass' : 
+                                result.status === 'fail' ? 'test-fail' : 'test-warning';
+                const icon = result.status === 'pass' ? '✅' : 
+                           result.status === 'fail' ? '❌' : '⚠️';
+                
+                html += `
+                    <div class="test-item ${className}">
+                        <strong>${icon} ${result.test}</strong><br>
+                        ${result.message}
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            
+            // Update play button
+            if (testResults.allPassed) {
+                button.disabled = false;
+                button.textContent = '🚀 Play Doraemon 3D World';
+                button.onclick = () => {
+                    window.location.href = 'index.html';
+                };
+                
+                recommendations.innerHTML = `
+                    <div class="test-pass">
+                        <strong>🎉 Your browser is fully compatible!</strong><br>
+                        You can enjoy the full Doraemon 3D World experience.
+                    </div>
+                `;
+            } else {
+                button.disabled = true;
+                button.textContent = '❌ Browser Not Compatible';
+                
+                recommendations.innerHTML = `
+                    <div class="test-fail">
+                        <strong>🔧 Browser Update Needed</strong><br>
+                        Please update to a modern browser:<br>
+                        • Chrome 60+<br>
+                        • Firefox 55+<br>
+                        • Safari 12+<br>
+                        • Edge 79+
+                    </div>
+                `;
+            }
+        }
+        
+        function getBrowserInfo() {
+            const userAgent = navigator.userAgent;
+            let browser = 'Unknown';
+            let version = 'Unknown';
+            
+            if (userAgent.includes('Chrome')) {
+                browser = 'Chrome';
+                version = userAgent.match(/Chrome\/(\d+)/)?.[1] || 'Unknown';
+            } else if (userAgent.includes('Firefox')) {
+                browser = 'Firefox';
+                version = userAgent.match(/Firefox\/(\d+)/)?.[1] || 'Unknown';
+            } else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
+                browser = 'Safari';
+                version = userAgent.match(/Version\/(\d+)/)?.[1] || 'Unknown';
+            } else if (userAgent.includes('Edge')) {
+                browser = 'Edge';
+                version = userAgent.match(/Edge\/(\d+)/)?.[1] || 'Unknown';
+            }
+            
+            return { browser, version };
+        }
+        
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const browserInfo = getBrowserInfo();
+            console.log(`Browser: ${browserInfo.browser} ${browserInfo.version}`);
+            
+            setTimeout(() => {
+                const testResults = runCompatibilityTests();
+                displayResults(testResults);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
